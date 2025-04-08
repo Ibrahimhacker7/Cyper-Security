@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security | حماية العالم الرقمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #172a45;
+            --accent: #64ffda;
+            --text: #ccd6f6;
+            --text-secondary: #8892b0;
+            --highlight: rgba(100, 255, 218, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid var(--accent);
+            pointer-events: none;
+            z-index: 1001;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        html[dir="rtl"] {
+            direction: rtl;
+        }
+        
+        header {
+            background-color: rgba(10, 25, 47, 0.9);
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            font-weight: bold;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        /* إضافة تأثيرات Hover للقائمة */
+        .nav-links li:hover::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 10;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+        
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            margin-top: -80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 900;
+        }
+        
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #64ffda, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent);
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            font-size: 20rem;
+            color: var(--accent);
+            z-index: 1;
+        }
+        
+        .hero-profile {
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .profile-circle {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s;
+        }
+        
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .profile-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(100, 255, 218, 0.3);
+            border-color: #3a7bd5;
+        }
+        
+        .profile-circle:hover img {
+            transform: scale(1.1);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-10px); }
+            100% { transform: translateY(-50%) translateX(0); }
+        }
+        
+        /* ========== التعديلات المطلوبة بالضبط ========== */
+        /* 1. تعديلات قسم "من نحن" */
+        .about {
+            padding: 6rem 5%;
+            background-color: var(--secondary);
+            position: relative;
+            border: 2px solid transparent;
+            transition: border-color 0.5s;
+            border-radius: 5px;
+            margin: 2rem;
+        }
+        
+        .about-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 3rem;
+            flex-direction: column;
+        }
+        
+        .logo-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .logo-title:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.7);
+        }
+        
+        .about-title-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 80px;
+            border-radius: 40px;
+            border: 3px solid var(--accent);
+            background: rgba(10, 25, 47, 0.7);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.7);
+            animation: pulse 3s infinite;
+            transition: all 0.4s;
+            margin: 0 auto;
+        }
+        
+        .about-text p {
+            font-size: 1.3rem;
+            line-height: 1.9;
+        }
+        
+        /* 2. تعديلات العناوين الرئيسية */
+        .section-title {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 280px;
+            height: 120px;
+            border-radius: 60px;
+            border: 3px solid var(--accent);
+            background: rgba(10, 25, 47, 0.7);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.7);
+            animation: pulse 3s infinite;
+            transition: all 0.4s;
+            margin-bottom: 3rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ========== باقي الأكواد كما هي ========== */
+        .about:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .services {
+            padding: 6rem 5%;
+            text-align: center;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background-color: var(--secondary);
+            padding: 2rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .service-card:hover::before {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: bold;
+        }
+        
+        .portfolio {
+            padding: 6rem 5%;
+            background-color: var(--secondary);
+            text-align: center;
+        }
+        
+        .portfolio-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .portfolio-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            height: 250px;
+            width: 30%;
+            min-width: 300px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .portfolio-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 1rem;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .portfolio-overlay p {
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .contact {
+            padding: 6rem 5%;
+            text-align: center;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-details p {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        
+        .contact-details p:hover {
+            background: var(--highlight);
+            color: var(--accent);
+        }
+        
+        .contact-details p i {
+            margin-left: 0.5rem;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary);
+            color: var(--text);
+            border-radius: 50%;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 1.5rem;
+            border: 2px solid transparent;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: var(--primary);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+        }
+        
+        .contact-form {
+            flex: 1;
+            background-color: var(--secondary);
+            padding: 2rem;
+            border-radius: 5px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .contact-form:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: transparent;
+            border: 1px solid var(--text-secondary);
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+        }
+        
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 2px solid transparent;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+            border-color: white;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            padding: 3rem 5%;
+            text-align: center;
+            position: relative;
+            border-top: 2px solid var(--accent);
+        }
+        
+        .footer-logo {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .contact-tooltip {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--secondary);
+            padding: 2rem;
+            border: 2px solid var(--accent);
+            border-radius: 5px;
+            z-index: 1002;
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.5);
+            animation: fadeIn 0.5s;
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        .close-tooltip {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .hero-profile {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin: 2rem auto;
+                text-align: center;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+                height: auto;
+                min-height: 100vh;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .profile-circle {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .portfolio-item {
+                width: 45%;
+            }
+            
+            .about-title-right, .about-title-left {
+                width: 220px;
+                height: 100px;
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                width: 220px;
+                height: 100px;
+                font-size: 1.8rem;
+            }
+            
+            .logo-title {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 2rem;
+                transition: right 0.3s;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .about {
+                margin: 1rem;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .portfolio-item {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body::before {
+                margin: 5px;
+                border-width: 1px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .about-title-right {
+                width: 180px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                width: 180px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
+            
+            .about-text p {
+                font-size: 1.1rem;
+            }
+            
+            .logo-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط العلوي -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Cyber Security</a>
+            <ul class="nav-links">
+                <li data-tooltip="الصفحة الرئيسية"><a href="#home">الرئيسية</a></li>
+                <li data-tooltip="تعرف على فريقنا"><a href="#about">من نحن</a></li>
+                <li data-tooltip="اكتشف خدماتنا المميزة"><a href="#services">خدماتنا</a></li>
+                <li data-tooltip="شاهد مشاريعنا السابقة"><a href="#portfolio">أعمالنا</a></li>
+                <li data-tooltip="تواصل معنا الآن"><a href="#contact">تواصل معنا</a></li>
+            </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>مرحباً بكم في</h1>
+            <h2>Cyber Security</h2>
+            <p>نقدم حلول أمنية متكاملة لحماية بياناتك وبنيتك التحتية الرقمية من التهديدات السيبرانية باستخدام أحدث التقنيات وأفضل الممارسات الأمنية.</p>
+            <a href="#contact" class="btn">تواصل معنا</a>
+        </div>
+        
+        <div class="hero-profile">
+            <div class="profile-circle">
+                <img src="https://i.imgur.com/DR8oewk.png" alt="CYS / Ibrahim Salah">
+            </div>
+        </div>
+        
+        <div class="hero-bg">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+    </section>
+
+    <!-- قسم من نحن -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-title-container">
+                <div class="logo-title">CYS / Ibrahim Salah</div>
+                <div class="about-title-right">من نحن</div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>المهندس إبراهيم صلاح، خبير في مجال الأمن السيبراني والحماية الرقمية، مع أكثر من 7 سنوات من الخبرة في مجال تأمين الأنظمة والشبكات ضد الاختراقات والهجمات الإلكترونية.</p>
+                    <p>تخصصت في اكتشاف الثغرات الأمنية واختبارات الاختراق الأخلاقي، وأعمل على تقديم حلول أمنية مخصصة تلبي احتياجات العملاء من الأفراد إلى المؤسسات الكبرى.</p>
+                    <p>مهمتي هي حماية العالم الرقمي من خلال تقديم استشارات أمنية متخصصة، تدريب فرق العمل على أحدث تقنيات الحماية، وتنفيذ أنظمة أمنية متكاملة تحافظ على سرية وسلامة بيانات عملائي.</p>
+                    <p>أؤمن بأن الأمان الرقمي هو حق للجميع، وأسعى جاهداً لنشر الوعي الأمني وتقديم حلول ميسورة التكلفة دون المساس بجودة الحماية المقدمة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">خدماتنا</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>تحليل الثغرات الأمنية</h3>
+                    <p>فحص شامل لأنظمتك وتطبيقاتك لاكتشاف نقاط الضعف والثغرات الأمنية قبل أن يستغلها المخترقون، مع تقديم تقرير مفصل عن كيفية معالجتها.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>اختبارات الاختراق</h3>
+                    <p>محاكاة هجمات حقيقية لتقييم مستوى أمان أنظمتك وتحديد نقاط الضعف التي تحتاج إلى تعزيز، مع ضمان عدم التأثير على عملياتك اليومية.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>حماية البنية التحتية</h3>
+                    <p>تصميم وتنفيذ أنظمة حماية متكاملة للشبكات والخوادم وأجهزة المستخدمين النهائيين، مع متابعة دورية لضمان استمرارية الحماية.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>التدريب الأمني</h3>
+                    <p>برامج تدريبية مخصصة لرفع الوعي الأمني وتعزيز المهارات الدفاعية لدى فرق العمل، مع شهادات معتمدة في نهاية كل دورة.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>المراقبة الأمنية</h3>
+                    <p>مراقبة مستمرة لأنظمتك لاكتشاف أي تهديدات أو أنشطة مشبوهة والاستجابة الفورية لها، مع تقارير دورية عن حالة الأمان.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>استجابة للحوادث</h3>
+                    <p>فريق متخصص للاستجابة السريعة للحوادث الأمنية واحتواء الاختراقات وتقليل الأضرار، مع تحليل جذري للأسباب وضمان عدم تكرارها.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>تطوير الويب الآمن</h3>
+                    <p>برمجة مواقع وتطبيقات ويب مع ضمان أعلى معايير الأمان باستخدام HTML, CSS, JavaScript وتقنيات الحماية الحديثة.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>برمجة تطبيقات</h3>
+                    <p>تطوير تطبيقات مخصصة بلغات Python وJava مع تطبيق أفضل ممارسات الأمن السيبراني في كل مرحلة من مراحل التطوير.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأعمال -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">أعمالنا</h2>
+            <div class="portfolio-container">
+                <div class="portfolio-row">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="مشروع 1" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3>تأمين شبكة شركة كبرى</h3>
+                            <p>تنفيذ نظام حماية متكامل لشبكة شركة تضم أكثر من 1000 موظف</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="مشروع 2" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3>اختبار اختراق لتطبيق بنكي</h3>
+                            <p>اكتشاف وإصلاح ثغرات أمنية حرجة في تطبيق مصرفي يخدم مليون عميل</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="مشروع 3" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3>برنامج تدريبي لمؤسسة حكومية</h3>
+                            <p>تدريب 200 موظف على أساسيات الأمن السيبراني والوعي الأمني</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-row">
+                    <div class="portfolio-item">
+                        <img src="https://i.imgur.com/SIM5Zg6.jpeg" alt="مشروع 4" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3>حماية نظام إدارة محتوى</h3>
+                            <p>تأمين نظام إدارة محتوى لشركة إعلامية ضد هجمات DDoS</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://i.imgur.com/TTTHWUA.jpeg" alt="مشروع 5" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3>تطوير تطبيق أمني</h3>
+                            <p>برمجة تطبيق لإدارة كلمات المرور بمعايير أمنية عالية</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://i.imgur.com/NXPnbZ5.jpeg" alt="مشروع 6" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3>تدريب فريق أمني</h3>
+                            <p>ورشة عمل متقدمة في أمن الشبكات لفريق أمن المعلومات</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">تواصل معنا</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>ابقى على تواصل</h3>
+                    <div class="contact-details">
+                        <p onclick="showTooltip('ميت غمر، الدقهلية، مصر')"><i class="fas fa-map-marker-alt"></i> ميت غمر، الدقهلية، مصر</p>
+                        <p onclick="showTooltip('01112472715')"><i class="fas fa-phone"></i> 01112472715</p>
+                        <p onclick="showTooltip('ibrahimethicalhacker@gmail.com')"><i class="fas fa-envelope"></i> ibrahimethicalhacker@gmail.com</p>
+                    </div>
+                    <h3>تابعنا على</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/1HwPW2f3ua/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/ibrahim_ssalah?igsh=aTg1aXRmODZtdWdt" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=ethical-hacker-33a38835b" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@ibrahim_ssalah?_t=ZS-8vMhcWpHa7T&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://t.me/ibrahim_ssalah" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">الاسم</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">الموضوع</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">الرسالة</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-logo">Cyber Security</a>
+            <ul class="footer-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#portfolio">أعمالنا</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+            <p class="copyright">© 2023 Cyber Security. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- زر الواتساب -->
+    <a href="https://wa.me/201112472715" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- مربع معلومات التواصل -->
+    <div id="contactTooltip" class="contact-tooltip">
+        <span class="close-tooltip" onclick="hideTooltip()">&times;</span>
+        <p id="tooltipContent"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // القائمة المتنقلة
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if(menuBtn && navLinks) {
+                menuBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // تأثير التمرير
+            const hiddenElements = document.querySelectorAll('.hidden');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            hiddenElements.forEach((el) => observer.observe(el));
+        });
+
+        // عرض معلومات التواصل عند النقر
+        function showTooltip(content) {
+            const tooltip = document.getElementById('contactTooltip');
+            const tooltipContent = document.getElementById('tooltipContent');
+            
+            tooltipContent.textContent = content;
+            tooltip.style.display = 'block';
+        }
+
+        function hideTooltip() {
+            document.getElementById('contactTooltip').style.display = 'none';
+        }
+
+        // إغلاق النافذة عند النقر خارجها
+        window.addEventListener('click', function(event) {
+            const tooltip = document.getElementById('contactTooltip');
+            if (event.target === tooltip) {
+                hideTooltip();
+            }
+        });
+    </script>
+</body>
+</html>
